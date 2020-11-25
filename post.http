@@ -1,0 +1,7 @@
+POST http://localhost:3000/post
+content-type: application/json
+
+{
+    "content": "sample",
+    "authorID": "5fbd0f1ab5b6f4585f9c22d3"
+}
