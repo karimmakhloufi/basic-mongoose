@@ -15,17 +15,14 @@ app.use(bodyParser.json());
 
 app.get("/authors", (req, res) => {
   (async () => {
-    await Author.find()
-      .populate("posts")
-      .exec((err, author) => {
-        res.status(200).send(author);
-      });
+    let author = await Author.find().populate("posts");
+    res.status(200).send(author);
   })();
 });
 
 app.post("/post", (req, res) => {
   (async () => {
-    let author = await Author.findById(req.body.authorID).exec();
+    let author = await Author.findById(req.body.authorID);
     const post = await Post.create({
       content: req.body.content,
       author: author._id,
@@ -38,11 +35,8 @@ app.post("/post", (req, res) => {
 
 app.get("/posts", (req, res) => {
   (async () => {
-    await Post.find()
-      .populate("author")
-      .exec(function (err, post) {
-        res.send(post);
-      });
+    let posts = await Post.find().populate("author", "name");
+    res.send(posts);
   })();
 });
 
